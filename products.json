@@ -1,0 +1,33 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Widget",
+      "price": 25,
+      "quantity": 5,
+      "createdAt": "2026-04-23T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Thing",
+      "price": 15,
+      "quantity": 5,
+      "createdAt": "2026-04-23T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Doodad",
+      "price": 8,
+      "quantity": 10,
+      "createdAt": "2026-04-23T10:00:00Z",
+      "updatedAt": "2026-04-23T15:35:48.157Z"
+    },
+    {
+      "id": 4,
+      "name": "mouse",
+      "price": 8,
+      "quantity": 3,
+      "createdAt": "2026-05-05T14:43:18.063Z"
+    }
+  ]
+}
