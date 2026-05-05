@@ -7,11 +7,13 @@ const path = require("path");
 const app = express();
 app.use(cors({
   origin: [
-    'http://localhost:5173',
-    'https://product-search-app-frontend-pk9zfqe8h.vercel.app' // Adresa ta de Vercel
-  ]
+    'http://localhost:5173', // Pentru teste locale
+    'https://product-search-app-frontend.vercel.app' // Adresa ta de Vercel din eroare
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
-app.use(express.json());
+app.use(express.json());  
 
 const PRODUCTS_FILE = path.join(__dirname, "products.json");
 
