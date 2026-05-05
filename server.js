@@ -5,7 +5,12 @@ const fs = require("fs").promises;
 const path = require("path");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://product-search-app-frontend-pk9zfqe8h.vercel.app' // Adresa ta de Vercel
+  ]
+}));
 app.use(express.json());
 
 const PRODUCTS_FILE = path.join(__dirname, "products.json");
