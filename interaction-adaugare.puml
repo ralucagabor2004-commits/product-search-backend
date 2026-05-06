@@ -1,0 +1,41 @@
+@startuml
+title Interaction Diagram - Adaugare Produs
+
+actor "Admin" as Admin
+participant "ManagePage\n(React)" as MP
+participant "productsApi.js" as API
+participant "Express Server\n(Node.js)" as Server
+participant "products.json" as JSON
+
+Admin -> MP : Deschide /manage
+MP -> API : getAllProducts()
+API -> Server : GET /api/products
+Server -> JSON : readFile
+JSON --> Server : { products: [...] }
+Server --> API : 200 OK
+API --> MP : allProducts[]
+MP --> Admin : Afiseaza lista produse
+
+Admin -> MP : Completeaza formular\n(nume, pret, cantitate)
+Admin -> MP : Click "Adauga"
+MP -> API : addProduct({ name, price, quantity })
+API -> Server : POST /api/products
+Server -> Server : Validare Joi Schema
+Server -> Server : Verifica duplicat
+
+alt Date valide si produs nou
+    Server -> JSON : writeFile — adauga produs
+    JSON --> Server : Salvat
+    Server --> API : 201 Created
+    API --> MP : success
+    MP -> API : getAllProducts() refresh
+    MP --> Admin : Afiseaza succes + lista actualizata
+else Date invalide
+    Server --> API : 400 Bad Request
+    MP --> Admin : Afiseaza erori validare
+else Produs duplicat
+    Server --> API : 409 Conflict
+    MP --> Admin : Produsul exista deja
+end
+
+@enduml

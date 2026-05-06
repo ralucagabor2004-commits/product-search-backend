@@ -1,0 +1,29 @@
+@startuml
+title Activity Diagram - Adaugare/Editare Produs (Admin)
+
+start
+
+:Admin deschide pagina Manage;
+
+if (Editare sau Adăugare?) then (EDITARE)
+  :Selectează produs;
+  :Populează formularul;
+else (ADĂUGARE)
+endif
+
+:Completează formular\n(nume, preț, cantitate);
+:Click "Salvează";
+:Validează date (Joi schema);
+
+if (Date valide?) then (DA)
+  :Salvează în products.json;
+  :Reîncarcă lista produse;
+  :Afișează mesaj "Succes";
+else (NU)
+  :Afișează erori;
+  :Revine la formular;
+endif
+
+stop
+
+@enduml

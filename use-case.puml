@@ -1,0 +1,30 @@
+@startuml
+title Use Case Diagram - TechStore
+
+left to right direction
+
+actor "User" as User
+actor "Admin" as Admin
+
+rectangle "Product Search Application" {
+  usecase "Caută produs" as UC1
+  usecase "Vizualizează detalii produs" as UC2
+  usecase "Adaugă produs nou" as UC3
+  usecase "Editează produs" as UC4
+  usecase "Șterge produs" as UC5
+  usecase "Vizualizează toate produsele" as UC6
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC6
+
+Admin --> UC3
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+
+UC1 ..> UC2 : include
+
+@enduml

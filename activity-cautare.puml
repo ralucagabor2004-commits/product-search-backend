@@ -1,0 +1,28 @@
+@startuml
+title Activity Diagram - Cautare Produs
+
+start
+
+:User introduce numele produsului;
+:Click "Caută";
+:Trimite cerere către backend;
+:Backend caută în products.json;
+
+if (Produs găsit?) then (DA)
+  :Afișează detalii produs\n(nume, preț, cantitate, imagine);
+  stop
+else (NU)
+  :Afișează mesaj eroare;
+  if (User vrea să adauge?) then (DA)
+    :Arată formular adăugare;
+    :User completează datele\n(preț + cantitate);
+    :Salvează în products.json;
+    :Afișează confirmare succes;
+  else (NU)
+    :Revine la pagina principală;
+  endif
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+title Flow Cautare Produs - TechStore
+
+actor "Utilizator" as User
+participant "SearchPage\n(React)" as SP
+participant "productsApi.js" as API
+participant "Express Server\n(Node.js)" as Server
+participant "products.json" as JSON
+
+User -> SP : Introduce numele produsului
+User -> SP : Click Cauta
+SP -> API : searchProduct(name)
+API -> Server : GET /api/products/search?name=Widget
+Server -> JSON : readFile
+JSON --> Server : date produse
+Server -> Server : filter by name
+
+alt Produs gasit
+    Server --> API : 200 OK
+    API --> SP : results
+    SP --> User : Afiseaza produs cu pret si cantitate
+else Produs negasit
+    Server --> API : 404 Not Found
+    SP --> User : Mesaj eroare
+    User -> SP : Click Da - adauga produs
+    SP -> API : addProduct(name, price, quantity)
+    API -> Server : POST /api/products
+    Server -> JSON : writeFile
+    Server --> API : 201 Created
+    SP --> User : Produs adaugat cu succes!
+end
+
+@enduml

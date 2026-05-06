@@ -1,0 +1,38 @@
+@startuml
+title Interaction Diagram - Cautare Produs
+
+actor "Utilizator" as User
+participant "SearchPage\n(React)" as SP
+participant "productsApi.js" as API
+participant "Express Server\n(Node.js)" as Server
+participant "products.json" as JSON
+
+== Initializare ==
+User -> SP : Deschide pagina TechStore
+SP -> API : getAllProducts()
+API -> Server : GET /api/products
+Server -> JSON : readFile
+JSON --> Server : { products: [...] }
+Server --> API : 200 OK
+API --> SP : allProducts[]
+SP --> User : Afiseaza lista produse
+
+== Cautare ==
+User -> SP : Introduce nume + Click Cauta
+SP -> API : searchProduct(name)
+API -> Server : GET /api/products/search?name=Widget
+Server -> JSON : readFile
+JSON --> Server : { products: [...] }
+Server -> Server : filter by name (toLowerCase)
+
+alt Produs gasit
+    Server --> API : 200 OK — [ product ]
+    API --> SP : results[]
+    SP --> User : Afiseaza ProductCard
+else Produs negasit
+    Server --> API : 404 Not Found
+    API --> SP : throw Error
+    SP --> User : Mesaj eroare + intrebare adaugare
+end
+
+@enduml
